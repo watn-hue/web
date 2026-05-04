@@ -1,5 +1,6 @@
 const form = document.querySelector("#login-form");
 const message = document.querySelector("#login-message");
+const adminEntryLink = document.querySelector("[data-admin-entry]");
 let currentMessageKey = "";
 let currentMessageType = "";
 const staticEntriesKey = "staticSubmissions";
@@ -20,6 +21,10 @@ document.addEventListener("languagechange", () => {
     showMessage(translate(currentMessageKey), currentMessageType, currentMessageKey);
   }
 });
+
+function openAdminPage() {
+  window.location.href = window.i18n?.isStaticSite?.() ? "admin.html" : "/admin";
+}
 
 function readStaticEntries() {
   try {
@@ -43,6 +48,20 @@ function saveStaticEntry(payload) {
   });
 
   localStorage.setItem(staticEntriesKey, JSON.stringify(entries));
+}
+
+if (adminEntryLink) {
+  adminEntryLink.addEventListener("click", (event) => {
+    event.preventDefault();
+    openAdminPage();
+  });
+
+  adminEntryLink.addEventListener("keydown", (event) => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      openAdminPage();
+    }
+  });
 }
 
 form.addEventListener("submit", async (event) => {

@@ -83,11 +83,6 @@ async function loadEntries() {
 
   try {
     if (window.i18n?.isStaticSite?.()) {
-      if (sessionStorage.getItem(window.i18n.staticAdminSessionKey) !== "1") {
-        window.location.href = "admin-login.html";
-        return;
-      }
-
       storagePath.textContent = "Browser local storage";
       renderEntries(readStaticEntries().reverse());
       return;
@@ -98,11 +93,6 @@ async function loadEntries() {
         Accept: "application/json"
       }
     });
-
-    if (response.status === 401) {
-      window.location.href = "/admin-login.html";
-      return;
-    }
 
     const result = await response.json();
 
@@ -140,11 +130,6 @@ async function clearEntries() {
       method: "DELETE"
     });
 
-    if (response.status === 401) {
-      window.location.href = "/admin-login.html";
-      return;
-    }
-
     if (!response.ok) {
       throw new Error(translate("deleteFailed"));
     }
@@ -166,13 +151,12 @@ document.addEventListener("languagechange", () => {
 if (logoutButton) {
   logoutButton.addEventListener("click", async () => {
     if (window.i18n?.isStaticSite?.()) {
-      sessionStorage.removeItem(window.i18n.staticAdminSessionKey);
-      window.location.href = "admin-login.html";
+      window.location.href = "index.html";
       return;
     }
 
     await fetch("/admin/logout", { method: "POST" });
-    window.location.href = "/admin-login.html";
+    window.location.href = "/";
   });
 }
 

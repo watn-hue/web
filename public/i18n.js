@@ -1,12 +1,7 @@
 (function () {
   const translations = {
     ar: {
-      adminLink: "\u0627\u0644\u0623\u062f\u0645\u0646",
-      adminLoginTitle: "\u062f\u062e\u0648\u0644 \u0627\u0644\u0623\u062f\u0645\u0646",
-      adminMark: "\u0623",
-      adminPasswordHelper: "\u0623\u062f\u062e\u0644 \u0643\u0644\u0645\u0629 \u0645\u0631\u0648\u0631 \u0627\u0644\u0623\u062f\u0645\u0646.",
       adminPanel: "\u0644\u0648\u062d\u0629 \u0627\u0644\u0623\u062f\u0645\u0646",
-      adminUsernameLabel: "\u0627\u0633\u0645 \u0627\u0644\u062f\u062e\u0648\u0644",
       clearAll: "\u0645\u0633\u062d \u0627\u0644\u0643\u0644",
       confirmClear: "\u0647\u0644 \u062a\u0631\u064a\u062f \u0645\u0633\u062d \u0643\u0644 \u0627\u0644\u0645\u0639\u0644\u0648\u0645\u0627\u062a \u0627\u0644\u0645\u062d\u0641\u0648\u0638\u0629\u061f",
       dashboardTitle: "\u0644\u0648\u062d\u0629 \u062a\u062e\u0632\u064a\u0646 \u0627\u0644\u0645\u0639\u0644\u0648\u0645\u0627\u062a",
@@ -23,7 +18,6 @@
       messageSaved: "\u062a\u0645 \u062d\u0641\u0638 \u0627\u0644\u0645\u0639\u0644\u0648\u0645\u0627\u062a.",
       noEntries: "\u0644\u0627 \u062a\u0648\u062c\u062f \u0645\u0639\u0644\u0648\u0645\u0627\u062a \u0645\u062d\u0641\u0648\u0638\u0629 \u062d\u0627\u0644\u064a\u0627.",
       none: "\u0644\u0627 \u064a\u0648\u062c\u062f",
-      openDashboard: "\u0641\u062a\u062d \u0644\u0648\u062d\u0629 \u0627\u0644\u0645\u0639\u0644\u0648\u0645\u0627\u062a",
       passwordLabel: "\u0643\u0644\u0645\u0629 \u0627\u0644\u0645\u0631\u0648\u0631",
       passwordPlaceholder: "\u0643\u0644\u0645\u0629 \u0627\u0644\u0645\u0631\u0648\u0631",
       records: "\u0627\u0644\u0633\u062c\u0644\u0627\u062a",
@@ -32,7 +26,6 @@
       saveInfo: "\u062d\u0641\u0638",
       savedEntries: "\u0627\u0644\u0645\u062d\u0641\u0648\u0638\u0627\u062a",
       secureSaved: "\u0645\u062d\u0641\u0648\u0638\u0629 \u0628\u0634\u0643\u0644 \u0622\u0645\u0646",
-      signInFailed: "\u0643\u0644\u0645\u0629 \u0627\u0644\u0645\u0631\u0648\u0631 \u063a\u064a\u0631 \u0635\u062d\u064a\u062d\u0629.",
       storageFile: "\u0645\u0643\u0627\u0646 \u0627\u0644\u062d\u0641\u0638",
       storageSubtitle: "\u0648\u0627\u062c\u0647\u0629 \u0628\u0633\u064a\u0637\u0629 \u0644\u0645\u0631\u0627\u062c\u0639\u0629 \u0627\u0644\u0645\u0639\u0644\u0648\u0645\u0627\u062a \u0627\u0644\u0645\u062d\u0641\u0648\u0638\u0629.",
       storageTitle: "\u062a\u062e\u0632\u064a\u0646 \u0627\u0644\u0645\u0639\u0644\u0648\u0645\u0627\u062a",
@@ -42,12 +35,7 @@
       usernamePlaceholder: "\u0627\u0633\u0645 \u0627\u0644\u0645\u0633\u062a\u062e\u062f\u0645"
     },
     en: {
-      adminLink: "Admin",
-      adminLoginTitle: "Admin Login",
-      adminMark: "A",
-      adminPasswordHelper: "Enter the admin password.",
       adminPanel: "Admin Panel",
-      adminUsernameLabel: "Username",
       clearAll: "Clear All",
       confirmClear: "Delete all saved information?",
       dashboardTitle: "Information Storage",
@@ -64,7 +52,6 @@
       messageSaved: "Information saved.",
       noEntries: "No saved information yet.",
       none: "None",
-      openDashboard: "Open Dashboard",
       passwordLabel: "Password",
       passwordPlaceholder: "Password",
       records: "Records",
@@ -73,7 +60,6 @@
       saveInfo: "Save",
       savedEntries: "Saved Entries",
       secureSaved: "Saved securely",
-      signInFailed: "Invalid password.",
       storageFile: "Storage File",
       storageSubtitle: "A simple place to review saved information.",
       storageTitle: "Information Storage",
@@ -86,7 +72,6 @@
 
   const languageKey = "appLanguageV2";
   const validLanguages = new Set(["ar", "en"]);
-  const staticAdminSessionKey = "staticAdminUnlocked";
 
   function isStaticSite() {
     return window.location.hostname.endsWith("github.io");
@@ -176,7 +161,6 @@
     getLanguage,
     isStaticSite,
     setLanguage,
-    staticAdminSessionKey,
     t,
     toggleLanguage
   };

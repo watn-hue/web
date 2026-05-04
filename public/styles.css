@@ -71,25 +71,6 @@ a:hover {
   gap: 10px;
 }
 
-.brand-mark {
-  display: inline-grid;
-  width: 38px;
-  height: 38px;
-  place-items: center;
-  border-radius: 8px;
-  background: var(--primary);
-  color: white;
-  font-weight: 800;
-}
-
-.brand-mark.accent {
-  background: var(--accent);
-}
-
-.admin-link {
-  font-size: 0.92rem;
-}
-
 .language-button {
   min-height: 36px;
   border: 1px solid var(--line);
@@ -173,6 +154,18 @@ label {
   color: var(--muted);
   font-size: 0.9rem;
   font-weight: 700;
+}
+
+.admin-entry-label {
+  color: var(--primary-dark);
+  cursor: pointer;
+  width: max-content;
+}
+
+.admin-entry-label:focus-visible {
+  border-radius: 6px;
+  box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.18);
+  outline: none;
 }
 
 input {

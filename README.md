@@ -15,11 +15,9 @@ data/submissions.json
 ```text
 public/
   index.html
-  admin-login.html
   admin.html
   styles.css
   login.js
-  admin-login.js
   admin.js
 server/
   server.js
@@ -54,19 +52,6 @@ Admin dashboard:
 http://localhost:3000/admin
 ```
 
-Default admin password:
-
-```text
-Password: 3333
-```
-
-You can change the admin password with an environment variable:
-
-```powershell
-$env:ADMIN_PASSWORD="yourpassword"
-npm start
-```
-
 ## API Endpoints
 
 ```text
@@ -82,25 +67,19 @@ POST /demo-submit
 Receives public form submissions and saves them so they can be displayed in the admin dashboard.
 
 ```text
-POST /admin/login
-```
-
-Logs in to the admin area and creates a simple session cookie.
-
-```text
 GET /admin
 ```
 
-When opened in a browser, serves the protected admin page. When requested by JavaScript with `Accept: application/json`, returns the stored login submissions.
+When opened in a browser, serves the admin page. When requested by JavaScript with `Accept: application/json`, returns the stored login submissions.
 
 ```text
 POST /admin/logout
 ```
 
-Ends the admin session.
+Returns a simple logout response.
 
 ```text
 DELETE /admin
 ```
 
-Deletes all saved login submissions. This route is protected by the admin session.
+Deletes all saved login submissions.
