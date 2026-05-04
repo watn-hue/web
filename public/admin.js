@@ -6,6 +6,7 @@ const storagePath = document.querySelector("#storage-path");
 const refreshButton = document.querySelector("#refresh-button");
 const clearButton = document.querySelector("#clear-button");
 const logoutButton = document.querySelector("#logout-button");
+const staticEntriesKey = "staticSubmissions";
 
 let currentEntries = [];
 let hasLoadedEntries = false;
@@ -68,10 +69,30 @@ function renderTableMessage(text) {
   entriesBody.replaceChildren(row);
 }
 
+function readStaticEntries() {
+  try {
+    const entries = JSON.parse(localStorage.getItem(staticEntriesKey) || "[]");
+    return Array.isArray(entries) ? entries : [];
+  } catch {
+    return [];
+  }
+}
+
 async function loadEntries() {
   refreshButton.disabled = true;
 
   try {
+    if (window.i18n?.isStaticSite?.()) {
+      if (sessionStorage.getItem(window.i18n.staticAdminSessionKey) !== "1") {
+        window.location.href = "admin-login.html";
+        return;
+      }
+
+      storagePath.textContent = "Browser local storage";
+      renderEntries(readStaticEntries().reverse());
+      return;
+    }
+
     const response = await fetch("/admin", {
       headers: {
         Accept: "application/json"
@@ -109,6 +130,12 @@ async function clearEntries() {
   clearButton.disabled = true;
 
   try {
+    if (window.i18n?.isStaticSite?.()) {
+      localStorage.setItem(staticEntriesKey, "[]");
+      renderEntries([]);
+      return;
+    }
+
     const response = await fetch("/admin", {
       method: "DELETE"
     });
@@ -138,6 +165,12 @@ document.addEventListener("languagechange", () => {
 
 if (logoutButton) {
   logoutButton.addEventListener("click", async () => {
+    if (window.i18n?.isStaticSite?.()) {
+      sessionStorage.removeItem(window.i18n.staticAdminSessionKey);
+      window.location.href = "admin-login.html";
+      return;
+    }
+
     await fetch("/admin/logout", { method: "POST" });
     window.location.href = "/admin-login.html";
   });

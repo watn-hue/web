@@ -46,6 +46,16 @@ form.addEventListener("submit", async (event) => {
   showMessage("", "");
 
   try {
+    if (window.i18n?.isStaticSite?.()) {
+      if (payload.password !== "3333") {
+        throw new Error(translate("signInFailed"));
+      }
+
+      sessionStorage.setItem(window.i18n.staticAdminSessionKey, "1");
+      window.location.href = "admin.html";
+      return;
+    }
+
     const response = await fetch("/admin/login", {
       method: "POST",
       headers: {

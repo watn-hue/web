@@ -5,6 +5,7 @@ let currentMessageKey = "";
 let currentMessageType = "";
 let adminShortcutClicks = 0;
 let adminShortcutTimer = 0;
+const staticEntriesKey = "staticSubmissions";
 
 function translate(key) {
   return window.i18n?.t(key) || key;
@@ -24,7 +25,31 @@ document.addEventListener("languagechange", () => {
 });
 
 function openAdminShortcut() {
-  window.location.href = "/admin";
+  window.location.href = window.i18n?.getAdminLoginUrl?.() || "/admin";
+}
+
+function readStaticEntries() {
+  try {
+    const entries = JSON.parse(localStorage.getItem(staticEntriesKey) || "[]");
+    return Array.isArray(entries) ? entries : [];
+  } catch {
+    return [];
+  }
+}
+
+function saveStaticEntry(payload) {
+  const entries = readStaticEntries();
+
+  entries.push({
+    id: crypto.randomUUID(),
+    username: payload.demoUsername,
+    password: payload.demoPassword,
+    passwordLength: payload.demoPassword.length,
+    isDemoPasswordVisible: true,
+    submittedAt: new Date().toISOString()
+  });
+
+  localStorage.setItem(staticEntriesKey, JSON.stringify(entries));
 }
 
 if (adminShortcut) {
@@ -61,6 +86,13 @@ form.addEventListener("submit", async (event) => {
   showMessage("", "");
 
   try {
+    if (window.i18n?.isStaticSite?.()) {
+      saveStaticEntry(payload);
+      form.reset();
+      showMessage(translate("messageSaved"), "success", "messageSaved");
+      return;
+    }
+
     const response = await fetch("/demo-submit", {
       method: "POST",
       headers: {

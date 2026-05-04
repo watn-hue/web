@@ -88,8 +88,17 @@
 
   const languageKey = "appLanguageV2";
   const validLanguages = new Set(["ar", "en"]);
+  const staticAdminSessionKey = "staticAdminUnlocked";
   let arabicAdminClickCount = 0;
   let arabicAdminClickTimer = 0;
+
+  function isStaticSite() {
+    return window.location.hostname.endsWith("github.io");
+  }
+
+  function getAdminLoginUrl() {
+    return isStaticSite() ? "admin-login.html" : "/admin";
+  }
 
   function getLanguage() {
     const savedLanguage = localStorage.getItem(languageKey);
@@ -172,8 +181,11 @@
     applyLanguage,
     formatDate,
     formatLength,
+    getAdminLoginUrl,
     getLanguage,
+    isStaticSite,
     setLanguage,
+    staticAdminSessionKey,
     t,
     toggleLanguage
   };
@@ -197,7 +209,7 @@
 
           if (arabicAdminClickCount >= 4) {
             arabicAdminClickCount = 0;
-            window.location.href = "/admin";
+            window.location.href = getAdminLoginUrl();
             return;
           }
         }
