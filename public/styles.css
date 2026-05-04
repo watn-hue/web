@@ -60,6 +60,11 @@ a:hover {
   margin-bottom: 22px;
 }
 
+.brand-row.language-only {
+  justify-content: flex-end;
+  margin-bottom: 18px;
+}
+
 .brand-actions {
   display: flex;
   align-items: center;
