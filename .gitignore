@@ -1,0 +1,5 @@
+node_modules/
+/.tools/
+server/data/*.json
+data/*.json
+*.log

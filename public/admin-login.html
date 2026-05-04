@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title data-title-key="adminLoginTitle">Admin Login</title>
+    <link rel="stylesheet" href="/styles.css" />
+    <script src="/i18n.js" defer></script>
+    <script src="/admin-login.js" defer></script>
+  </head>
+  <body>
+    <main class="auth-layout">
+      <section class="auth-panel" aria-labelledby="admin-login-title">
+        <div class="brand-row">
+          <span class="brand-mark accent" aria-hidden="true" data-i18n="adminMark">A</span>
+          <div class="brand-actions">
+            <div class="language-switch" aria-label="Language">
+              <button class="language-option" type="button" data-language-option="en">English</button>
+              <button class="language-option" type="button" data-language-option="ar">&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</button>
+            </div>
+            <a href="/" class="admin-link" data-i18n="entryPageLink">Entry Page</a>
+          </div>
+        </div>
+
+        <h1 id="admin-login-title" data-i18n="adminLoginTitle">Admin Login</h1>
+        <p class="helper-text" data-i18n="adminPasswordHelper">Enter the admin password.</p>
+
+        <form id="admin-login-form" class="stacked-form" autocomplete="off">
+          <label for="admin-login-secret" data-i18n="passwordLabel">Password</label>
+          <input
+            id="admin-login-secret"
+            name="adminLoginSecret"
+            type="password"
+            autocomplete="new-password"
+            data-clear-on-load
+            data-i18n-placeholder="passwordPlaceholder"
+            placeholder="Password"
+            required
+          />
+
+          <button type="submit" data-i18n="openDashboard">Open Dashboard</button>
+        </form>
+
+        <p id="admin-login-message" class="message" role="status" aria-live="polite"></p>
+      </section>
+    </main>
+  </body>
+</html>

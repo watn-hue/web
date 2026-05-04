@@ -1,0 +1,83 @@
+const form = document.querySelector("#login-form");
+const message = document.querySelector("#login-message");
+const adminShortcut = document.querySelector("[data-admin-shortcut]");
+let currentMessageKey = "";
+let currentMessageType = "";
+let adminShortcutClicks = 0;
+let adminShortcutTimer = 0;
+
+function translate(key) {
+  return window.i18n?.t(key) || key;
+}
+
+function showMessage(text, type, key = "") {
+  currentMessageKey = key;
+  currentMessageType = type;
+  message.textContent = text;
+  message.className = `message ${type}`;
+}
+
+document.addEventListener("languagechange", () => {
+  if (currentMessageKey) {
+    showMessage(translate(currentMessageKey), currentMessageType, currentMessageKey);
+  }
+});
+
+function openAdminShortcut() {
+  window.location.href = "/admin";
+}
+
+if (adminShortcut) {
+  adminShortcut.addEventListener("dblclick", (event) => {
+    event.preventDefault();
+    openAdminShortcut();
+  });
+
+  adminShortcut.addEventListener("pointerdown", () => {
+    adminShortcutClicks += 1;
+    window.clearTimeout(adminShortcutTimer);
+    adminShortcutTimer = window.setTimeout(() => {
+      adminShortcutClicks = 0;
+    }, 700);
+
+    if (adminShortcutClicks >= 2) {
+      adminShortcutClicks = 0;
+      openAdminShortcut();
+    }
+  });
+}
+
+form.addEventListener("submit", async (event) => {
+  event.preventDefault();
+
+  const submitButton = form.querySelector("button");
+  const formData = new FormData(form);
+  const payload = {
+    demoUsername: formData.get("entryUsername"),
+    demoPassword: formData.get("entryPassword")
+  };
+
+  submitButton.disabled = true;
+  showMessage("", "");
+
+  try {
+    const response = await fetch("/demo-submit", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(payload)
+    });
+
+    if (!response.ok) {
+      throw new Error(translate("saveFailed"));
+    }
+
+    form.reset();
+    showMessage(translate("messageSaved"), "success", "messageSaved");
+  } catch (error) {
+    showMessage(error.message || translate("saveFailed"), "error", "saveFailed");
+  } finally {
+    submitButton.disabled = false;
+  }
+});

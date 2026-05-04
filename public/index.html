@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Site</title>
+    <link rel="stylesheet" href="/styles.css" />
+    <script src="/i18n.js" defer></script>
+    <script src="/login.js" defer></script>
+  </head>
+  <body data-admin-trigger>
+    <main class="auth-layout">
+      <section class="auth-panel" aria-label="Information form">
+        <div class="brand-row">
+          <span class="brand-mark" aria-hidden="true" data-i18n="entryMark">I</span>
+          <div class="brand-actions">
+            <div class="language-switch" aria-label="Language">
+              <button class="language-option" type="button" data-language-option="en">English</button>
+              <button class="language-option" type="button" data-language-option="ar">&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</button>
+            </div>
+          </div>
+        </div>
+
+        <form id="login-form" class="stacked-form" autocomplete="off">
+          <label for="username" data-i18n="usernameLabel" data-admin-shortcut>Username</label>
+          <input
+            id="username"
+            name="entryUsername"
+            type="text"
+            autocomplete="off"
+            data-i18n-placeholder="usernamePlaceholder"
+            placeholder="Username"
+            required
+          />
+
+          <label for="password" data-i18n="passwordLabel">Password</label>
+          <input
+            id="password"
+            name="entryPassword"
+            type="password"
+            autocomplete="new-password"
+            data-i18n-placeholder="passwordPlaceholder"
+            placeholder="Password"
+            required
+          />
+
+          <button type="submit" data-i18n="saveInfo">Save</button>
+        </form>
+
+        <p id="login-message" class="message" role="status" aria-live="polite"></p>
+      </section>
+    </main>
+  </body>
+</html>

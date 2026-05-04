@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title data-title-key="dashboardTitle">Information Storage</title>
+    <link rel="stylesheet" href="/styles.css" />
+    <script src="/i18n.js" defer></script>
+    <script src="/admin.js" defer></script>
+  </head>
+  <body>
+    <main class="dashboard-layout">
+      <header class="dashboard-header">
+        <div>
+          <p class="eyebrow" data-i18n="adminPanel">Admin Panel</p>
+          <h1 data-i18n="storageTitle">Information Storage</h1>
+          <p class="dashboard-subtitle" data-i18n="storageSubtitle">A simple place to review saved information.</p>
+        </div>
+        <div class="dashboard-actions">
+          <div class="language-switch" aria-label="Language">
+            <button class="language-option" type="button" data-language-option="en">English</button>
+            <button class="language-option" type="button" data-language-option="ar">&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</button>
+          </div>
+          <a href="/" class="secondary-link" data-i18n="entryPageLink">Entry Page</a>
+          <button id="logout-button" class="secondary-button" type="button" data-i18n="logout">Logout</button>
+        </div>
+      </header>
+
+      <section class="stats-grid" aria-label="Storage summary">
+        <article class="stat-card">
+          <span class="stat-label" data-i18n="savedEntries">Saved Entries</span>
+          <strong id="entry-total">0</strong>
+        </article>
+        <article class="stat-card">
+          <span class="stat-label" data-i18n="latestEntry">Latest Entry</span>
+          <strong id="latest-entry" data-i18n="none">None</strong>
+        </article>
+        <article class="stat-card wide-stat">
+          <span class="stat-label" data-i18n="storageFile">Storage File</span>
+          <strong id="storage-path" dir="ltr">data/submissions.json</strong>
+        </article>
+      </section>
+
+      <section class="table-panel" aria-labelledby="entries-title">
+        <div class="table-title-row">
+          <h2 id="entries-title" data-i18n="records">Records</h2>
+          <div class="table-actions">
+            <span id="entry-count" class="count-badge">0</span>
+            <button id="refresh-button" class="secondary-button compact-button" type="button" data-i18n="refresh">Refresh</button>
+            <button id="clear-button" class="danger-button" type="button" disabled data-i18n="clearAll">Clear All</button>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col" data-i18n="usernameLabel">Username</th>
+                <th scope="col" data-i18n="passwordLabel">Password</th>
+                <th scope="col" data-i18n="lengthLabel">Length</th>
+                <th scope="col" data-i18n="submittedLabel">Saved At</th>
+              </tr>
+            </thead>
+            <tbody id="entries-body">
+              <tr>
+                <td colspan="4" class="empty-cell" data-i18n="loadingEntries">Loading records...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
