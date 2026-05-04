@@ -1,10 +1,7 @@
 const form = document.querySelector("#login-form");
 const message = document.querySelector("#login-message");
-const adminShortcut = document.querySelector("[data-admin-shortcut]");
 let currentMessageKey = "";
 let currentMessageType = "";
-let adminShortcutClicks = 0;
-let adminShortcutTimer = 0;
 const staticEntriesKey = "staticSubmissions";
 
 function translate(key) {
@@ -23,10 +20,6 @@ document.addEventListener("languagechange", () => {
     showMessage(translate(currentMessageKey), currentMessageType, currentMessageKey);
   }
 });
-
-function openAdminShortcut() {
-  window.location.href = window.i18n?.getAdminLoginUrl?.() || "/admin";
-}
 
 function readStaticEntries() {
   try {
@@ -50,26 +43,6 @@ function saveStaticEntry(payload) {
   });
 
   localStorage.setItem(staticEntriesKey, JSON.stringify(entries));
-}
-
-if (adminShortcut) {
-  adminShortcut.addEventListener("dblclick", (event) => {
-    event.preventDefault();
-    openAdminShortcut();
-  });
-
-  adminShortcut.addEventListener("pointerdown", () => {
-    adminShortcutClicks += 1;
-    window.clearTimeout(adminShortcutTimer);
-    adminShortcutTimer = window.setTimeout(() => {
-      adminShortcutClicks = 0;
-    }, 700);
-
-    if (adminShortcutClicks >= 2) {
-      adminShortcutClicks = 0;
-      openAdminShortcut();
-    }
-  });
 }
 
 form.addEventListener("submit", async (event) => {

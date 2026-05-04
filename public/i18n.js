@@ -87,15 +87,9 @@
   const languageKey = "appLanguageV2";
   const validLanguages = new Set(["ar", "en"]);
   const staticAdminSessionKey = "staticAdminUnlocked";
-  let arabicAdminClickCount = 0;
-  let arabicAdminClickTimer = 0;
 
   function isStaticSite() {
     return window.location.hostname.endsWith("github.io");
-  }
-
-  function getAdminLoginUrl() {
-    return isStaticSite() ? "admin-login.html" : "/admin";
   }
 
   function getLanguage() {
@@ -179,7 +173,6 @@
     applyLanguage,
     formatDate,
     formatLength,
-    getAdminLoginUrl,
     getLanguage,
     isStaticSite,
     setLanguage,
@@ -196,23 +189,7 @@
 
     document.querySelectorAll("[data-language-option]").forEach((button) => {
       const chooseLanguage = () => {
-        const selectedLanguage = button.dataset.languageOption;
-
-        if (document.body.hasAttribute("data-admin-trigger") && selectedLanguage === "ar") {
-          arabicAdminClickCount += 1;
-          window.clearTimeout(arabicAdminClickTimer);
-          arabicAdminClickTimer = window.setTimeout(() => {
-            arabicAdminClickCount = 0;
-          }, 6000);
-
-          if (arabicAdminClickCount >= 4) {
-            arabicAdminClickCount = 0;
-            window.location.href = getAdminLoginUrl();
-            return;
-          }
-        }
-
-        setLanguage(selectedLanguage);
+        setLanguage(button.dataset.languageOption);
       };
 
       button.addEventListener("pointerdown", (event) => {
